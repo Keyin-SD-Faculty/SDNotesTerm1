@@ -12,9 +12,9 @@ No experience required. Start from the top and work your way through.
 ## Topics
 
 {{< cards >}}
-  {{< card link="getting-started" title="Getting Started" icon="play" subtitle="Setting up your environment" >}}
-  {{< card link="variables" title="Variables & Data Types" icon="variable" subtitle="Storing and working with data" >}}
-  {{< card link="control-flow" title="Control Flow" icon="arrows-right-left" subtitle="If statements and loops" >}}
-  {{< card link="methods" title="Methods" icon="code-bracket" subtitle="Reusing blocks of code" >}}
-  {{< card link="intro-to-oop" title="Intro to OOP" icon="cube" subtitle="Objects and classes" >}}
+  {{< card link="getting-started" title="Getting Started"  subtitle="Setting up your environment" >}}
+  {{< card link="variables" title="Variables & Data Types"  subtitle="Storing and working with data" >}}
+  {{< card link="control-flow" title="Control Flow" subtitle="If statements and loops" >}}
+  {{< card link="methods" title="Methods"  subtitle="Reusing blocks of code" >}}
+  {{< card link="intro-to-oop" title="Intro to OOP"  subtitle="Objects and classes" >}}
 {{< /cards >}}
