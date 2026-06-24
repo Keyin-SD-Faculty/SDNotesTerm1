@@ -24,16 +24,13 @@ menu:
     - name: About
       pageRef: /about
       weight: 2
-    - name: Contact ↗
-      url: "https://github.com/JKells99"
-      weight: 3
     - name: Search
       weight: 4
       params:
         type: search
     - name: GitHub
       weight: 5
-      url: "https://github.com/JKells99"
+      url: "https://github.com/Keyin-SD-Faculty/SDNotesTerm1.git"
       params:
         icon: github
 

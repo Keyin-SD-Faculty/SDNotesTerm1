@@ -1,5 +1,5 @@
 ---
-title: SD1 — Intro to Programming
+title: Intro to Programming
 weight: 1
 sidebar:
   open: true
