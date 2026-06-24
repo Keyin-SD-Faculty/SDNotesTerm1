@@ -12,11 +12,10 @@ These notes are designed for people who are brand new to programming. No prior e
 This site is organized by term and course. Each section covers the topics from that course in a logical order, building on what came before.
 
 {{< cards >}}
-  {{< card link="docs/sd1" title="SD1 — Intro to Programming" icon="book-open" subtitle="Fundamentals of programming using Java" >}}
-  {{< card link="docs/sd2" title="SD2" icon="lock-closed" subtitle="Coming soon" >}}
-  {{< card link="docs/sd3" title="SD3" icon="lock-closed" subtitle="Coming soon" >}}
-  {{< card link="docs/sd4" title="SD4" icon="lock-closed" subtitle="Coming soon" >}}
-  {{< card link="docs/sd5" title="SD5" icon="lock-closed" subtitle="Coming soon" >}}
+  {{< card link="docs/intro-programming-java" title="Intro to Programming (Java)" icon="book-open" subtitle="Fundamentals of programming using Java" >}}
+  {{< card link="docs/intro-to-web-dev" title="Intro to Web Development" icon="globe-alt" subtitle="HTML, CSS, and JavaScript basics" >}}
+  {{< card link="docs/it-foundations" title="IT Foundations" icon="desktop-computer" subtitle="How computers, OSes, and networks work" >}}
+  {{< card link="docs/problem-solving" title="Problem Solving" icon="light-bulb" subtitle="Algorithms, pseudocode, and structured thinking" >}}
 {{< /cards >}}
 
 ## How to Use These Notes
