@@ -12,9 +12,9 @@ No experience required. Start from the top and work your way through.
 ## Topics
 
 {{< cards >}}
-  {{< card link="getting-started" title="Getting Started"  subtitle="Setting up your environment" >}}
-  {{< card link="variables" title="Variables & Data Types"  subtitle="Storing and working with data" >}}
-  {{< card link="control-flow" title="Control Flow" subtitle="If statements and loops" >}}
-  {{< card link="methods" title="Methods"  subtitle="Reusing blocks of code" >}}
-  {{< card link="intro-to-oop" title="Intro to OOP"  subtitle="Objects and classes" >}}
+  {{< card link="1-0-intro-to-programming-concepts" title="1.0 Introduction to Programming Concepts" subtitle="IPO model and basic programming logic" >}}
+  {{< card link="2-0-java-environment-and-syntax" title="2.0 Java Environment and Syntax" subtitle="JVM, JRE, JDK, and writing your first program" >}}
+  {{< card link="3-0-data-types-and-io" title="3.0 Data Types and Input/Output" subtitle="Variables, arithmetic, and user input" >}}
+  {{< card link="4-0-conditional-logic" title="4.0 Conditional Logic" subtitle="if, if-else, switch, and Boolean logic" >}}
+  {{< card link="5-0-loops-and-iteration" title="5.0 Loops and Iteration" subtitle="for, while, do-while, break, and continue" >}}
 {{< /cards >}}
