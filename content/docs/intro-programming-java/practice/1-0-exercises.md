@@ -1,228 +1,56 @@
 ---
-title: "1.0 Exercises — Introduction to Programming Concepts"
+title: "1.0 Problems — Introduction to Programming Concepts"
 weight: 1
 ---
 
-## Overview
-
-Practice exercises for Topic 1.0: Introduction to Programming Concepts.
-
-Topics covered: running code in your IDE, the IPO model, and structured programming logic.
-
-Exercises are broken into short labs. Complete each lab before moving to the next.
+Scenario-based problems covering the IPO model and structured programming logic. For each problem, identify the input, process, and output before you write any code.
 
 ---
 
-## Lab 1 — Your First Run
+## Problem 1 — Tip Calculator
 
-**Goal:** Confirm your IDE is working and you can run a Java program.
+A customer at a restaurant wants to calculate how much to tip their server and what the final bill will be. They know the total before tip and want to tip a percentage of their choice.
 
-Type the following program out manually — do not copy and paste.
-
-```java
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
-
-1. Create a new Java project in your IDE.
-2. Create a file named `HelloWorld.java` inside the `src` folder.
-3. Type the code above exactly as written.
-4. Run the program. Confirm the output panel shows: `Hello, World!`
-
-**Reflect in your notes:**
-- What happens if you misspell `println`?
-- What happens if you remove the semicolon at the end of line 3?
+Write a program that asks the user for the bill amount and the tip percentage, then prints the tip amount and the total bill.
 
 ---
 
-## Lab 2 — Multiple Output Lines
+## Problem 2 — Kilometres to Miles
 
-**Goal:** Print more than one line of output.
+A Canadian travelling to the United States needs to convert distances from kilometres to miles. One kilometre is equal to 0.621371 miles.
 
-Update your `HelloWorld` program to print your name, your course name, and today's date on separate lines.
-
-**Expected output (example):**
-```
-Name: Jordan
-Course: Intro to Programming
-Date: 2026-06-26
-```
-
-**Hint:** You need one `System.out.println(...)` statement per line.
+Write a program that asks the user for a distance in kilometres and prints the equivalent distance in miles.
 
 ---
 
-## Lab 3 — Identify IPO in Everyday Programs
+## Problem 3 — Seconds Converter
 
-**Goal:** Recognize the Input, Process, and Output stages in real programs.
+A student is building a countdown timer and needs to display time in a readable format. They have a total number of seconds and want to know how many full minutes and remaining seconds that works out to.
 
-For each program below, write the Input, Process, and Output in your notes before checking the answers.
+Write a program that asks the user for a number of seconds and prints the equivalent in minutes and seconds.
 
-| Program | Input | Process | Output |
-|---|---|---|---|
-| A calculator adding two numbers | ? | ? | ? |
-| A weather app | ? | ? | ? |
-| A login screen | ? | ? | ? |
-
-<details>
-<summary>Show Answers</summary>
-
-| Program | Input | Process | Output |
-|---|---|---|---|
-| A calculator adding two numbers | Two numbers typed by the user | Add them together | The sum shown on screen |
-| A weather app | Your location | Look up forecast data for that location | Temperature and conditions shown on screen |
-| A login screen | Username and password | Check if they match a stored account | "Welcome" or "Incorrect password" |
-
-</details>
+**Example:** 135 seconds → 2 minutes and 15 seconds.
 
 ---
 
-## Lab 4 — Trace IPO in Code
+## Problem 4 — Paint Estimator
 
-**Goal:** Read a program and map it to the IPO model.
+A homeowner wants to know how many cans of paint to buy for a rectangular wall. Each can of paint covers 10 square metres. They know the width and height of the wall.
 
-Read the following program carefully. It uses `Scanner` to collect input — don't worry about how that works yet, it's covered in Topic 3.0. Focus only on identifying what counts as input, process, and output.
-
-```java
-import java.util.Scanner;
-
-public class AreaCalculator {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the length: ");
-        double length = scanner.nextDouble();
-
-        System.out.print("Enter the width: ");
-        double width = scanner.nextDouble();
-
-        double area = length * width;
-
-        System.out.println("The area is: " + area);
-    }
-}
-```
-
-Answer in your notes:
-1. What is the **Input**?
-2. What is the **Process**?
-3. What is the **Output**?
-4. If the user enters `5` for length and `3` for width, what will the program print?
+Write a program that asks the user for the wall's width and height in metres, then prints the wall's area and the number of cans of paint needed.
 
 ---
 
-## Lab 5 — Write a Sequence
+## Problem 5 — Average Score
 
-**Goal:** Write a program where steps run in order from top to bottom.
+A teacher needs to calculate a student's average score across three tests. The student's final average is the sum of all three scores divided by three.
 
-Write a Java program that calculates the total cost of a purchase with tax.
-
-**Your program must:**
-1. Declare a variable for the item price (use `49.99`).
-2. Declare a variable for the tax rate (use `0.13` for 13%).
-3. Calculate the tax amount.
-4. Calculate the total (price + tax).
-5. Print the price, tax amount, and total on separate lines.
-
-**Expected output:**
-```
-Item price: $49.99
-Tax (13%): $6.4987
-Total: $56.4887
-```
-
-**Starter code:**
-```java
-public class PurchaseTotal {
-    public static void main(String[] args) {
-        double price = 49.99;
-        double taxRate = 0.13;
-
-        // your code here
-
-    }
-}
-```
+Write a program that asks for three test scores and prints the average.
 
 ---
 
-## Lab 6 — Trace a Sequence
+## Problem 6 — Simple Invoice
 
-**Goal:** Predict what a program does before running it.
+A freelancer needs to generate a basic invoice. They charge an hourly rate and want to know their subtotal, the HST (13%), and the total amount owing.
 
-Read this program and write your predicted output in your notes. Then run it to check.
-
-```java
-public class TraceMe {
-    public static void main(String[] args) {
-        int a = 10;
-        int b = 3;
-        int c = a + b;
-        int d = c * 2;
-
-        System.out.println("a = " + a);
-        System.out.println("b = " + b);
-        System.out.println("c = " + c);
-        System.out.println("d = " + d);
-    }
-}
-```
-
-Answer in your notes:
-1. What is the value of `c`?
-2. What is the value of `d`?
-3. What order do the four lines print in?
-4. Move `int d = c * 2;` to before `int c = a + b;`. What error do you get? Why?
-
----
-
-## Lab 7 — Your First Program with User Input
-
-**Goal:** Run a program that collects input from the user — with the Scanner setup already provided.
-
-The following program asks the user for two numbers and prints their sum. The `Scanner` setup is done for you — your job is to add the calculation and the output.
-
-```java
-import java.util.Scanner;
-
-public class AddNumbers {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter the first number: ");
-        double firstNumber = scanner.nextDouble();
-
-        System.out.print("Enter the second number: ");
-        double secondNumber = scanner.nextDouble();
-
-        // your code here: calculate the sum and print it
-
-    }
-}
-```
-
-1. Type this program out in your IDE.
-2. Add one line to calculate the sum.
-3. Add one line to print it with a label, e.g. `Sum: 12.0`
-4. Run it and test with a few different numbers.
-
----
-
-## Lab 8 — Challenge: Bring It All Together
-
-**Goal:** Use IPO, sequence logic, and IDE skills in one program — this time writing it from scratch.
-
-Write a Java program that:
-1. Asks the user to enter their name and a number.
-2. Squares the number (`number * number`).
-3. Prints: `Hello Jordan! The square of 7 is 49.`
-
-This exercise uses:
-- Running code in the IDE
-- IPO (user input → square calculation → printed result)
-- Sequence logic (steps run in a fixed order)
-
-**Hint:** Use the same `Scanner` pattern from Lab 7 to collect input. You'll need `scanner.nextLine()` for the name and `scanner.nextDouble()` for the number.
+Write a program that asks for the number of hours worked and the hourly rate, then prints the subtotal, HST amount, and total.
