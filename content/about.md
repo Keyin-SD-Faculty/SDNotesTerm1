@@ -5,7 +5,7 @@ type: about
 
 ## What is SD Notes?
 
-SD Notes is a supplementary resource for students in the Software Development program, written by your Teaching Assistant. It is not a replacement for your classes or the material shared in lectures — it is meant to sit alongside all of that and help things click.
+SD Notes is a supplementary resource for students in the Software Development program
 
 ## Why use this?
 
