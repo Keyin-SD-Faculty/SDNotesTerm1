@@ -18,4 +18,5 @@ No experience required. Start from the top and work your way through.
   {{< card link="4-0-conditional-logic" title="4.0 Conditional Logic" subtitle="if, if-else, switch, and Boolean logic" >}}
   {{< card link="5-0-loops-and-iteration" title="5.0 Loops and Iteration" subtitle="for, while, do-while, break, and continue" >}}
   {{< card link="practice" title="Practice Exercises" subtitle="Hands-on exercises for each topic" >}}
+  {{< card link="examples" title="Example Programs" subtitle="Complete programs that tie concepts together" >}}
 {{< /cards >}}

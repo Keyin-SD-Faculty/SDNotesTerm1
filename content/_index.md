@@ -7,6 +7,14 @@ Welcome to **SD Notes** — a companion resource for students in the Software De
 
 These notes are designed for people who are brand new to programming. No prior experience is assumed. Every concept is broken down from the ground up, with examples and explanations written the way a fellow student would explain them — not a textbook.
 
+## New Here? Start With This
+
+Before anything else, get your computer set up. You'll need a code editor and Git installed before you can follow along with any course.
+
+{{< cards >}}
+  {{< card link="docs/setup-dev-enviroment" title="Getting Started" icon="cog" subtitle="Set up your dev environment before your first class" >}}
+{{< /cards >}}
+
 ## What You'll Find Here
 
 This site is organized by term and course. Each section covers the topics from that course in a logical order, building on what came before.
