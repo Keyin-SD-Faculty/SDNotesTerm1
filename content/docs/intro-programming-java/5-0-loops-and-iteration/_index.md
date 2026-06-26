@@ -1,5 +1,5 @@
 ---
-title: "5.0 Loops and Iteration"
+title: "Loops and Iteration"
 weight: 5
 sidebar:
   open: true
@@ -19,4 +19,5 @@ Loops allow a program to repeat actions without writing the same code over and o
   {{< card link="for-loops" title="for Loops" subtitle="Counted repetition with a known number of iterations" >}}
   {{< card link="while-and-do-while" title="while and do-while" subtitle="Condition-based repetition" >}}
   {{< card link="break-and-continue" title="break and continue" subtitle="Controlling loop execution mid-cycle" >}}
+  {{< card link="practice" title="Practice Problems" subtitle="Scenario-based problems for this topic" >}}
 {{< /cards >}}
