@@ -2,11 +2,11 @@
 title: "Getting Started"
 weight: 1
 sidebar:
-  open: true
+  open: false
 type: docs
 ---
 
-# Getting Started: Setting Up Your Dev Environment
+# Setting Up Your Development Environmentvironment
 
 Welcome! Before you write a single line of code, you need to set up your computer correctly. This section walks you through everything step by step — even if you've never done this before.
 

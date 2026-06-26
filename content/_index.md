@@ -1,5 +1,5 @@
 ---
-title: TA Notes for Software Development Semester 1 
+title: Notes for Software Development Semester 1 
 toc: false
 ---
 
