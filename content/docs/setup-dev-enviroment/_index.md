@@ -8,9 +8,8 @@ type: docs
 
 # Setting Up Your Development Environmentvironment
 
-Welcome! Before you write a single line of code, you need to set up your computer correctly. This section walks you through everything step by step — even if you've never done this before.
+Welcome! Before you write a single line of code, you need to set up your computer correctly. This section walks you through everything step by step — even if you've never done this before or they are not installed on your computer
 
-**Complete these steps in order.** Each one builds on the last.
 
 ---
 
