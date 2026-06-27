@@ -6,6 +6,9 @@ const CONTENT_DIR = path.join(__dirname, "..", "content");
 const OUTPUT_DIR = path.join(__dirname, "..", "pdfs");
 const BASE_URL = "http://127.0.0.1:8080";
 
+// --------------------
+// Walk markdown files
+// --------------------
 function walk(dir) {
     let results = [];
 
@@ -22,9 +25,11 @@ function walk(dir) {
     return results;
 }
 
+// --------------------
+// Convert MD → Hugo URL
+// --------------------
 function mdToUrl(mdFile) {
     let relative = path.relative(CONTENT_DIR, mdFile);
-
     relative = relative.replace(/\\/g, "/");
 
     if (relative.endsWith("/_index.md")) {
@@ -34,21 +39,23 @@ function mdToUrl(mdFile) {
     return "/" + relative.replace(".md", "/");
 }
 
+// --------------------
+// Convert MD → PDF path
+// --------------------
 function mdToPdf(mdFile) {
     const relative = path.relative(CONTENT_DIR, mdFile);
-
-    return path.join(
-        OUTPUT_DIR,
-        relative.replace(/\.md$/, ".pdf")
-    );
+    return path.join(OUTPUT_DIR, relative.replace(/\.md$/, ".pdf"));
 }
 
+// --------------------
+// MAIN
+// --------------------
 (async () => {
 
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
 
     const browser = await puppeteer.launch({
-        headless: true,
+        headless: "new",
         args: [
             "--no-sandbox",
             "--disable-setuid-sandbox"
@@ -62,33 +69,50 @@ function mdToPdf(mdFile) {
     for (const mdFile of files) {
 
         const url = BASE_URL + mdToUrl(mdFile);
-        const pdf = mdToPdf(mdFile);
+        const pdfPath = mdToPdf(mdFile);
 
-        fs.mkdirSync(path.dirname(pdf), { recursive: true });
+        fs.mkdirSync(path.dirname(pdfPath), { recursive: true });
 
-        console.log(`Generating ${url}`);
+        console.log(`📄 Generating: ${url}`);
+
+        // --------------------
+        // Load page fully
+        // --------------------
+        await page.setViewport({
+            width: 1280,
+            height: 800,
+            deviceScaleFactor: 1
+        });
 
         await page.goto(url, {
             waitUntil: "networkidle0"
         });
 
-        // Allow Hextra JS, Mermaid, KaTeX, etc. to finish rendering
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // wait for fonts + Hextra JS + math + diagrams
+        await page.evaluate(() => document.fonts.ready);
+        await new Promise(r => setTimeout(r, 2000));
 
+        // force print mode (VERY important for consistency)
+        await page.emulateMediaType("print");
+
+        // --------------------
+        // Generate PDF
+        // --------------------
         await page.pdf({
-            path: pdf,
+            path: pdfPath,
             format: "A4",
             printBackground: true,
+            preferCSSPageSize: true,
             margin: {
-                top: "0.5in",
-                bottom: "0.5in",
-                left: "0.5in",
-                right: "0.5in"
+                top: "12mm",
+                bottom: "12mm",
+                left: "12mm",
+                right: "12mm"
             }
         });
     }
 
     await browser.close();
 
-    console.log("Finished generating PDFs.");
+    console.log("✅ All PDFs generated successfully.");
 })();
