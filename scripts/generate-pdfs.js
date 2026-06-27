@@ -7,8 +7,6 @@ const OUTPUT_DIR = path.join(__dirname, "..", "pdfs");
 const BASE_URL = "http://127.0.0.1:8080";
 
 // -----------------------------
-// Walk markdown files
-// -----------------------------
 function walk(dir) {
     let results = [];
 
@@ -26,12 +24,9 @@ function walk(dir) {
 }
 
 // -----------------------------
-// Convert MD → Hugo URL
-// -----------------------------
 function mdToUrl(mdFile) {
     let relative = path.relative(CONTENT_DIR, mdFile).replace(/\\/g, "/");
 
-    // _index.md maps to section root
     if (relative.endsWith("/_index.md")) {
         return "/" + relative.replace("/_index.md", "/");
     }
@@ -40,15 +35,11 @@ function mdToUrl(mdFile) {
 }
 
 // -----------------------------
-// Convert MD → PDF output path
-// -----------------------------
 function mdToPdf(mdFile) {
     const relative = path.relative(CONTENT_DIR, mdFile);
     return path.join(OUTPUT_DIR, relative.replace(/\.md$/, ".pdf"));
 }
 
-// -----------------------------
-// MAIN
 // -----------------------------
 (async () => {
 
@@ -56,10 +47,7 @@ function mdToPdf(mdFile) {
 
     const browser = await puppeteer.launch({
         headless: "new",
-        args: [
-            "--no-sandbox",
-            "--disable-setuid-sandbox"
-        ]
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
 
     const page = await browser.newPage();
@@ -73,13 +61,13 @@ function mdToPdf(mdFile) {
 
         fs.mkdirSync(path.dirname(pdfPath), { recursive: true });
 
-        console.log(`📄 Generating: ${url}`);
+        console.log(`📄 ${url}`);
 
         // -----------------------------
-        // Load page fully (important for Hextra)
+        // Stable desktop viewport
         // -----------------------------
         await page.setViewport({
-            width: 1400,
+            width: 1366,
             height: 900,
             deviceScaleFactor: 1
         });
@@ -88,91 +76,31 @@ function mdToPdf(mdFile) {
             waitUntil: "networkidle2"
         });
 
-        // Wait for fonts + JS hydration
-        await page.evaluate(() => document.fonts.ready);
-        await new Promise(r => setTimeout(r, 2500));
+        // Let Hextra fully hydrate (VERY important)
+        await page.waitForFunction(() => document.fonts && document.fonts.ready);
+
+        await new Promise(r => setTimeout(r, 2000));
 
         // -----------------------------
-        // Force clean print mode
+        // DO NOT force print mode
         // -----------------------------
-        await page.emulateMediaType("print");
+        // This is what was breaking styling before
 
-        // Inject print-friendly CSS overrides
-        await page.addStyleTag({
-            content: `
-                /* =========================
-                   CLEAN STUDENT PDF MODE
-                   ========================= */
-
-                /* Remove UI clutter */
-                nav, aside, header, footer {
-                    display: none !important;
-                }
-
-                /* Ensure full width content */
-                main, article, .content {
-                    max-width: 100% !important;
-                    width: 100% !important;
-                    padding: 0 !important;
-                    margin: 0 auto !important;
-                }
-
-                /* Improve readability */
-                body {
-                    font-size: 12pt !important;
-                    line-height: 1.6 !important;
-                    color: #111 !important;
-                    background: white !important;
-                }
-
-                /* Headings spacing */
-                h1, h2, h3, h4 {
-                    margin-top: 16px !important;
-                    margin-bottom: 8px !important;
-                }
-
-                /* Code blocks */
-                pre, code {
-                    font-size: 10pt !important;
-                    white-space: pre-wrap !important;
-                    word-break: break-word !important;
-                }
-
-                pre {
-                    padding: 10px !important;
-                }
-
-                /* Prevent card / grid compression (Hextra fix) */
-                .hx-mt-6, .hx-mb-6, .hx-p-6 {
-                    margin: 10px 0 !important;
-                    padding: 0 !important;
-                }
-
-                /* Remove shadows/background noise */
-                * {
-                    box-shadow: none !important;
-                }
-            `
-        });
-
-        // -----------------------------
-        // Generate PDF
-        // -----------------------------
         await page.pdf({
             path: pdfPath,
             format: "A4",
             printBackground: true,
             preferCSSPageSize: true,
             margin: {
-                top: "15mm",
-                bottom: "15mm",
-                left: "15mm",
-                right: "15mm"
+                top: "12mm",
+                bottom: "12mm",
+                left: "12mm",
+                right: "12mm"
             }
         });
     }
 
     await browser.close();
 
-    console.log("✅ All student PDFs generated successfully.");
+    console.log("✅ Per-page PDFs generated successfully.");
 })();
