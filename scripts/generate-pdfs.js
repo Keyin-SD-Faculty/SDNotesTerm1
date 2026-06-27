@@ -2,20 +2,19 @@ const fs = require("fs");
 const path = require("path");
 const puppeteer = require("puppeteer");
 
-const contentDir = path.join(__dirname, "..", "content");
-const outputDir = path.join(__dirname, "..", "pdfs");
+const CONTENT_DIR = path.join(__dirname, "..", "content");
+const OUTPUT_DIR = path.join(__dirname, "..", "pdfs");
+const BASE_URL = "http://127.0.0.1:8080";
 
-// ensure output exists
-fs.mkdirSync(outputDir, { recursive: true });
-
-function getMarkdownFiles(dir) {
+// -----------------------------
+function walk(dir) {
     let results = [];
 
     for (const file of fs.readdirSync(dir)) {
         const full = path.join(dir, file);
 
         if (fs.statSync(full).isDirectory()) {
-            results = results.concat(getMarkdownFiles(full));
+            results = results.concat(walk(full));
         } else if (file.endsWith(".md")) {
             results.push(full);
         }
@@ -24,53 +23,84 @@ function getMarkdownFiles(dir) {
     return results;
 }
 
-function toHugoUrl(mdPath) {
-    const relative = path.relative(contentDir, mdPath);
-    const noExt = relative.replace(/\.md$/, "");
-    const url = noExt.replace(/\\/g, "/"); // Windows fix
-    return "/" + url + "/";
+// -----------------------------
+function mdToUrl(mdFile) {
+    let relative = path.relative(CONTENT_DIR, mdFile).replace(/\\/g, "/");
+
+    if (relative.endsWith("/_index.md")) {
+        return "/" + relative.replace("/_index.md", "/");
+    }
+
+    return "/" + relative.replace(".md", "/");
 }
 
-function toPdfPath(mdPath) {
-    const relative = path.relative(contentDir, mdPath);
-    const pdfName = relative.replace(/\.md$/, ".pdf");
-    return path.join(outputDir, pdfName);
+// -----------------------------
+function mdToPdf(mdFile) {
+    const relative = path.relative(CONTENT_DIR, mdFile);
+    return path.join(OUTPUT_DIR, relative.replace(/\.md$/, ".pdf"));
 }
 
+// -----------------------------
 (async () => {
+
+    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
     const browser = await puppeteer.launch({
-        headless: true,
-        args: ["--no-sandbox"]
+        headless: "new",
+        args: ["--no-sandbox", "--disable-setuid-sandbox"]
     });
 
     const page = await browser.newPage();
 
-    const files = getMarkdownFiles(contentDir);
+    const files = walk(CONTENT_DIR);
 
-    for (const mdFile of files) {
+    for (const file of files) {
 
-        const url = "http://localhost:1313" + toHugoUrl(mdFile);
-        const pdfPath = toPdfPath(mdFile);
+        const url = BASE_URL + mdToUrl(file);
+        const pdfPath = mdToPdf(file);
 
         fs.mkdirSync(path.dirname(pdfPath), { recursive: true });
 
-        console.log(`📄 ${mdFile}`);
-        console.log(`➡️  ${url}`);
-        console.log(`💾 ${pdfPath}`);
+        console.log(`📄 Printing: ${url}`);
 
-        await page.goto(url, {
-            waitUntil: "networkidle0"
+        // -----------------------------
+        // stable desktop viewport
+        // -----------------------------
+        await page.setViewport({
+            width: 1366,
+            height: 900,
+            deviceScaleFactor: 1
         });
 
-        // important for Hextra (renders tabs, math, etc)
+        // -----------------------------
+        // load full page
+        // -----------------------------
+        await page.goto(url, {
+            waitUntil: "networkidle2"
+        });
+
+        // wait for fonts + JS hydration (VERY important for Hextra)
+        await page.waitForFunction(() => document.fonts && document.fonts.ready);
         await new Promise(r => setTimeout(r, 2000));
 
+        // -----------------------------
+        // THIS IS THE KEY: emulate PRINT MODE
+        // (this is what Chrome "Print to PDF" uses internally)
+        // -----------------------------
+        await page.emulateMediaType("print");
+
+        // -----------------------------
+        // generate PDF like browser print
+        // -----------------------------
         await page.pdf({
             path: pdfPath,
             format: "A4",
-            printBackground: true
+            printBackground: true,
+            preferCSSPageSize: true
         });
     }
 
     await browser.close();
+
+    console.log("✅ All PDFs generated using PRINT mode.");
 })();
