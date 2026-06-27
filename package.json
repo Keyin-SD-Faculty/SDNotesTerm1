@@ -1,0 +1,26 @@
+{
+  "name": "sdnotesterm1",
+  "version": "1.0.0",
+  "description": "A companion notes site for students in the Software Development program. Written by a TA, for students — plain language, no assumed knowledge.",
+  "main": "index.js",
+  "scripts": {
+    "generate-pdfs": "node scripts/generate-pdfs.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Keyin-SD-Faculty/SDNotesTerm1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Keyin-SD-Faculty/SDNotesTerm1/issues"
+  },
+  "homepage": "https://github.com/Keyin-SD-Faculty/SDNotesTerm1#readme",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "puppeteer": "^25.2.1"
+  }
+}
