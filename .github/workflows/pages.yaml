@@ -60,7 +60,7 @@ jobs:
       - name: Install Node packages
         run: npm ci
 
-      - name: Build Hugo
+      - name: Build Hugo (production)
         env:
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
@@ -70,9 +70,16 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Build Hugo (local — for PDF generation)
+        run: |
+          hugo \
+            --gc \
+            --destination public_local \
+            --baseURL "http://127.0.0.1:8080/"
+
       - name: Start static server
         run: |
-          npx http-server public -p 8080 &
+          npx http-server public_local -p 8080 &
           sleep 5
 
       - name: Generate PDFs
