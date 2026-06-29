@@ -63,18 +63,12 @@ function mdToPdf(mdFile) {
 
         console.log(`📄 Printing: ${url}`);
 
-        // -----------------------------
-        // stable desktop viewport
-        // -----------------------------
         await page.setViewport({
             width: 1366,
             height: 900,
             deviceScaleFactor: 1
         });
 
-        // -----------------------------
-        // load full page
-        // -----------------------------
         await page.goto(url, {
             waitUntil: "networkidle2"
         });
@@ -83,20 +77,13 @@ function mdToPdf(mdFile) {
         await page.waitForFunction(() => document.fonts && document.fonts.ready);
         await new Promise(r => setTimeout(r, 2000));
 
-        // -----------------------------
-        // THIS IS THE KEY: emulate PRINT MODE
-        // (this is what Chrome "Print to PDF" uses internally)
-        // -----------------------------
-        await page.emulateMediaType("print");
-
-        // -----------------------------
-        // generate PDF like browser print
-        // -----------------------------
+        // Stay in screen media so all site styles, colors, and layout are preserved.
+        // printBackground: true ensures backgrounds/colors render in the PDF output.
         await page.pdf({
             path: pdfPath,
             format: "A4",
             printBackground: true,
-            preferCSSPageSize: true
+            margin: { top: "20mm", bottom: "20mm", left: "15mm", right: "15mm" }
         });
     }
 
