@@ -2,10 +2,7 @@
 title: Notes for Software Development Semester 1 
 toc: false
 ---
-
 Welcome to **SD Notes** — a companion resource for students in the Software Development program.
-
-These notes are designed for people who are brand new to programming. No prior experience is assumed. Every concept is broken down from the ground up, with examples and explanations written the way a fellow student would explain them — not a textbook.
 
 ## New Here? Start With This
 
