@@ -24,6 +24,10 @@ menu:
     - name: About
       pageRef: /about
       weight: 2
+
+    - name: FAQs
+      pageRef: /docs/faq
+      weight: 3
     - name: Search
       weight: 4
       params:
